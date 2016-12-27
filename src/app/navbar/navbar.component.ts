@@ -22,9 +22,10 @@ export class NavbarComponent implements OnInit, OnChanges{
   }
 
   ngOnChanges(){
-    if (this.isLogged()){
-      this.getCurrentUser();
-    }
+    // if (this.isLogged()){
+    //   this.getCurrentUser();
+    //   console.log('onchanges');
+    // }
   }
 
   toggleState() {

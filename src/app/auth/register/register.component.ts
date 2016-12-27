@@ -26,25 +26,24 @@ export class RegisterComponent implements OnInit {
 
         this.userService.register(this.user)
             .subscribe(
-                data=> this.handleRespone(data),
-                err=>console.log(err)
+                data => this.handleRespone(data),
+                err => console.log(err)
             );
     }
 
-    handleRespone(data){
-        if (data.message){
+    handleRespone(data) {
+        if (data.message) {
             this.submitted = false;
             this.message = data.message;
-        }else{
+        } else {
             this.message = data.result;
-            setTimeout(()=> this.router.navigate(['login']), 3500)
+            setTimeout(() => this.router.navigate(['login']), 3500)
         }
     }
 
     active = true;
 
     userForm: FormGroup;
-
 
 
     ngOnInit(): void {

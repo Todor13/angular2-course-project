@@ -7,7 +7,7 @@ import {removeNgStyles, createNewHosts, createInputTransfer} from '@angularclass
 
 import {AUTH_PROVIDERS} from 'angular2-jwt';
 import {AuthGuard} from './common/auth.guard';
-
+import {ForumService} from './services/forum.service';
 import {NavbarComponent} from './navbar/navbar.component';
 import {LoginComponent} from './auth/login/login.component';
 import {UserService} from './services/user.service';
@@ -72,7 +72,8 @@ type StoreType = {
         AUTH_PROVIDERS,
         AuthGuard,
         AuthenticationService,
-        UserService
+        UserService,
+        ForumService
     ]
 })
 export class AppModule {

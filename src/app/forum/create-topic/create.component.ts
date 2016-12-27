@@ -1,32 +1,55 @@
 import {Component, OnInit} from '@angular/core';
 import {Topic} from '../../../models/topic';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {ForumService} from '../../services/forum.service';
+import {Router} from '@angular/router'
 
 @Component({
     selector: 'app-create',
     templateUrl: './create.component.html',
     styleUrls: ['./create.component.css']
 })
-export class CreateComponent implements OnInit{
+export class CreateComponent implements OnInit {
     topic = new Topic();
+    message: string;
 
     submitted = false;
+
+    constructor(private fb: FormBuilder, private forumService: ForumService, private router: Router) {
+    }
 
     onSubmit() {
         this.submitted = true;
         this.topic = this.createTopicForm.value;
+
+        this.forumService.createTopic(this.topic)
+            .subscribe(
+                data => this.handleRespone(data),
+                err => console.log(err)
+            );
     }
+
+    handleRespone(data) {
+        if (!data.result) {
+            this.submitted = false;
+            this.message = data.message;
+        } else {
+            this.message = data.result;
+            setTimeout(() => this.router.navigate(['forum']), 2500)
+        }
+    }
+
 
     active = true;
 
     createTopicForm: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+
 
     ngOnInit(): void {
         this.buildForm();
     }
+
     //
     buildForm(): void {
         this.createTopicForm = this.fb.group({
