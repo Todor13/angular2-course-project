@@ -1,0 +1,35 @@
+<h1>Forum</h1>
+<div class="container">
+    <div class="row">
+        <div class="span12" [hidden]="submited">
+            <form [formGroup]="createTopicForm" *ngIf="active" (ngSubmit)="onSubmit()" class="form-horizontal">
+                <fieldset>
+                    <div id="legend">
+                        <legend class="">Create Topic</legend>
+                    </div>
+                    <label class="control-label row" for="title">Your topic</label>
+                    <div class="controls">
+                        <input type="text" id="title" formControlName="title" class="input-xlarge col-md-10" required>
+                    </div>
+                    <div *ngIf="formErrors.title" class="alert alert-danger">
+                        {{ formErrors.title }}
+                    </div>
+                    <hr>
+                    <label class="control-label row" for="content">Content</label>
+                    <div class="controls">
+                        <textarea type="text" id="content" formControlName="content" class="input-xlarge col-md-10" required></textarea>
+                    </div>
+                    <div *ngIf="formErrors.content" class="alert alert-danger">
+                        {{ formErrors.content }}
+                    </div>
+                    <hr>
+                    <!-- Button -->
+                    <div class="controls row">
+                        <button type="submit" class="btn btn-default"
+                                [disabled]="!createTopicForm.valid">Submit</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

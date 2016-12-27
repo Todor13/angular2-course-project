@@ -1,0 +1,27 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button"
+              class="navbar-toggle collapsed"
+              (click)="toggleState()">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand btn" [routerLink]="['home']">Bakery</a>
+    </div>
+    <div class="collapse navbar-collapse"
+         [ngClass]="{ 'in': isIn }">
+      <ul class="nav navbar-nav">
+        <li><a class="btn" [routerLink]="['/forum']">Forum</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a class="btn" *ngIf="!isLogged()" [routerLink]="['register']">Register</a></li>
+        <li><a class="btn" *ngIf="!isLogged()" [routerLink]="['login']">Login</a></li>
+        <li><a class="btn" *ngIf="isLogged()" (click)="logOut()">Logout</a> </li>
+        <li><a class="btn" *ngIf="isLogged()">{{username}}</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
