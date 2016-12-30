@@ -8,6 +8,7 @@ import { AuthHeaders } from '../common/auth-headers';
 
 const Domain="http://localhost:4200";
 const RegisterUrl="/forum/create";
+const TopicsUrl="/forum/threads/";
 
 @Injectable()
 export class ForumService {
@@ -18,6 +19,16 @@ export class ForumService {
     createTopic(topic: Topic): Observable<any>{
         return this.http.post(`${Domain}${RegisterUrl}`, JSON.stringify(topic), {headers: AuthHeaders})
             .map((response: Response) => response.json());
+    }
+
+    getTopics(params: any): Observable<any>{
+        return this.http.get(`${Domain}${TopicsUrl}`, {headers: ContentHeaders, search: params})
+            .map((response: Response) => response.json());
+    }
+
+    getTopicById(id: any): Observable<any>{
+        return this.http.get(`${Domain}${TopicsUrl}${id}`, {headers: ContentHeaders})
+          .map((response: Response) => response.json());
     }
 
 }

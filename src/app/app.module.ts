@@ -15,6 +15,7 @@ import {ForumComponent} from './forum/forum.component';
 import {AuthenticationService} from './services/index';
 import {RegisterModule} from './auth/register/register.module';
 import {CreateModule} from './forum/create-topic/create.module';
+import {DetailedModule} from './forum/detailed-topic/detailed.module';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -54,7 +55,6 @@ type StoreType = {
         // RegisterComponent,
         LoginComponent,
         ForumComponent,
-        //CreateComponent,
         NoContentComponent,
         XLarge
     ],
@@ -64,7 +64,8 @@ type StoreType = {
         HttpModule,
         RouterModule.forRoot(ROUTES, {useHash: false, preloadingStrategy: PreloadAllModules}),
         RegisterModule,
-        CreateModule
+        CreateModule,
+        DetailedModule
     ],
     providers: [ // expose our Services and Providers into Angular's dependency injection
         ENV_PROVIDERS,

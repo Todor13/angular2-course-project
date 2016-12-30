@@ -1,5 +1,5 @@
 <h1>Welcome to our forum</h1>
-<a [routerLink]="['create']">Create topic</a>
+<a class="btn btn-default" [routerLink]="['create']">Create topic</a>
 
 <div class="container">
     <div class="row">
@@ -9,25 +9,21 @@
                     Topics
                 </h1>
             </div>
-            <div class="comments-list">
-                <div class="media">
-                    <p class="pull-right">
-                        <small>5 days ago</small>
-                    </p>
-                    <a class="media-left" href="#">
-                        <img src="http://lorempixel.com/40/40/people/1/">
-                    </a>
-                    <div class="media-body">
-
-                        <h4 class="media-heading user_name">Baltej Singh</h4>
-                        Wow! this is really great.
-
-                        <p>
-                            <small><a href="">Like</a> - <a href="">Share</a></small>
-                        </p>
-                    </div>
-                </div>
+            <div class="content-wrapper">
+                <table class="table table-bordered table-striped custab" *ngFor="let topic of topics">
+                    <tr>
+                        <th class="btn-default" [routerLink]="['/forum', topic._id]">{{topic.title}}</th>
+                        <td><p>Created by {{topic.username}} on {{topic.dateTime}}</p></td>
+                    </tr>
+                </table>
+                <ul class="list list-inline text-center">
+                    <li *ngFor="let number of count">
+                        <a *ngIf="page == number" class="btn btn-primary disabled" [routerLink]="" [queryParams]="{page: number}">{{number}}</a>
+                        <a *ngIf="page != number" class="btn btn-default" [routerLink]="" [queryParams]="{page: number}">{{number}}</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
+

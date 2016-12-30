@@ -1,12 +1,5 @@
 /*@import "../../../assets/bower_components/bootstrap/dist/css/bootstrap.min.css";*/
 
-.user_name{
-    font-size:14px;
-    font-weight: bold;
-}
-.comments-list .media{
-    border-bottom: 1px dotted #ccc;
-}
 .custab{
     border: 1px solid #ccc;
     padding: 5px;
