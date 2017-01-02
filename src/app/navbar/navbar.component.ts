@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthGuard } from '../common/auth.guard'
 import { AuthenticationService } from "../services/authentication.service";
+import { LoggedService } from '../shared/logged.service';
+import { Logged } from '../../models/logged';
 
 @Component({
   selector: 'app-navbar',
@@ -10,9 +12,14 @@ import { AuthenticationService } from "../services/authentication.service";
 export class NavbarComponent implements OnInit{
   isIn = false;
   username: string;
+  private logged: Logged;
 
-  constructor(private authGuard: AuthGuard, private authService: AuthenticationService){
-
+  constructor(private authGuard: AuthGuard, private authService: AuthenticationService,
+  private loggedService: LoggedService){
+    this.loggedService.getLogged().subscribe(logged => {
+      this.logged = logged;
+      this.username = this.logged.username;
+    })
   }
 
   ngOnInit(){

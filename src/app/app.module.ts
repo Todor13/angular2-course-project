@@ -17,6 +17,7 @@ import {RegisterModule} from './auth/register/register.module';
 import {CreateModule} from './forum/create-topic/create.module';
 import {DetailedModule} from './forum/detailed-topic/detailed.module';
 import {SearchComponent} from './forum/search/search.component';
+import {LoggedService} from './shared/logged.service';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -75,7 +76,8 @@ type StoreType = {
         AuthGuard,
         AuthenticationService,
         UserService,
-        ForumService
+        ForumService,
+        LoggedService
     ]
 })
 export class AppModule {

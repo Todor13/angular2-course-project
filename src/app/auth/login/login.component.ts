@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/index';
+import { LoggedService } from '../../shared/logged.service';
+import { Logged } from '../../../models/logged';
 
 @Component({
   selector: 'app-login',
@@ -8,17 +10,20 @@ import { AuthenticationService } from '../../services/index';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  private logged: Logged;
   username: string;
   password: string;
   submited = false;
   message: string;
 
-  constructor(public router: Router, public authService: AuthenticationService) {
+  constructor(public router: Router, public authService: AuthenticationService, private loggedService: LoggedService) {
   }
 
   login(){
+    this.logged = {username: this.username};
     this.authService.login(this.username, this.password)
         .subscribe(data=>this.handleResponse(data));
+    this.loggedService.setLogged(this.logged);
 
   }
 
