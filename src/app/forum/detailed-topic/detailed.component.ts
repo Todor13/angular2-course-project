@@ -18,6 +18,7 @@ export class DetailedComponent implements OnInit {
   messages = [];
   submitted = false;
   content: string;
+  popup: string;
 
   constructor(private forumService: ForumService, private activatedRoute: ActivatedRoute,
               private location: Location, private fb: FormBuilder) { }
@@ -49,17 +50,22 @@ export class DetailedComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.topic = this.answerForm.value;
+    this.content = this.answerForm.value;
 
-    this.forumService.createTopic(this.topic)
+    this.forumService.addAnswerToTopic(this.id, this.content)
       .subscribe(
-        data => this.handleRespone(data),
+        data => {
+          this.popup = data.result;
+          setTimeout(()=>this.popup = '', 1500);
+          this.forumService.getTopicById(this.id)
+            .subscribe(
+              data => {
+                this.messages = data.thread.messages;
+                this.answerForm.reset();
+              });
+        },
         err => console.log(err)
       );
-  }
-
-  handleRespone(data) {
-
   }
 
   answerForm: FormGroup;

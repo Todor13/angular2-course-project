@@ -1,7 +1,7 @@
 <h1>Forum</h1>
 <div class="container">
-    <div class="row">
-        <div class="span12" [hidden]="submited">
+    <div class="row" [style.display]="submitted?'none':'inherit'">
+        <div class="span12">
             <form [formGroup]="createTopicForm" *ngIf="active" (ngSubmit)="onSubmit()" class="form-horizontal">
                 <fieldset>
                     <div id="legend">

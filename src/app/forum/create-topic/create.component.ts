@@ -34,6 +34,7 @@ export class CreateComponent implements OnInit {
             this.submitted = false;
             this.message = data.message;
         } else {
+            this.submitted = true;
             this.message = data.result;
             setTimeout(() => this.router.navigate(['forum']), 2500)
         }

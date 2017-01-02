@@ -1,17 +1,17 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ForumService} from '../services/forum.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ForumService} from '../../services/forum.service';
+import {ActivatedRoute} from '@angular/router';
 import {URLSearchParams} from '@angular/http';
 import {Subscription} from "rxjs/Rx";
 
 const PageSize = 3;
 
 @Component({
-  selector: 'app-forum',
-  templateUrl: './forum.component.html',
-  styleUrls: ['./forum.component.css']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
-export class ForumComponent implements OnInit, OnDestroy {
+export class SearchComponent implements OnInit, OnDestroy {
   topics = [];
   count = [];
   search: string;
@@ -19,28 +19,27 @@ export class ForumComponent implements OnInit, OnDestroy {
 
   page: string;
 
-  constructor(private forumServicve: ForumService, private route: ActivatedRoute, private router: Router) {
+  constructor(private forumServicve: ForumService, private route: ActivatedRoute) {
   }
-
 
   ngOnInit() {
     this.subscription = this.route.queryParams.subscribe(
       (queryParam: any) => {
         this.count = [];
-        this.page = queryParam['page'];
-        let params = new URLSearchParams();
-        params.set('page', this.page);
-        this.getTopics(params);
-      }
-    );
+        this.search = queryParam['title'];
+        this.onSubmit();
+      });
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  getTopics(params: any) {
-    this.forumServicve.getTopics(params)
+  onSubmit(){
+    console.log('here');
+    let params = new URLSearchParams();
+    params.set('title', this.search);
+    this.forumServicve.searchTopics(params)
       .subscribe(
         data => {
           this.topics = data.result.threads;
@@ -48,10 +47,6 @@ export class ForumComponent implements OnInit, OnDestroy {
         },
         err => console.log(err)
       );
-  }
-
-  onSubmit(){
-    this.router.navigate( ['forum/search'], {queryParams: {title: this.search }});
   }
 
   calculatePages(count){
@@ -64,4 +59,5 @@ export class ForumComponent implements OnInit, OnDestroy {
       }
     }
   }
+
 }

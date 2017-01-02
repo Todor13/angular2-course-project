@@ -16,6 +16,7 @@ import {AuthenticationService} from './services/index';
 import {RegisterModule} from './auth/register/register.module';
 import {CreateModule} from './forum/create-topic/create.module';
 import {DetailedModule} from './forum/detailed-topic/detailed.module';
+import {SearchComponent} from './forum/search/search.component';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -52,7 +53,7 @@ type StoreType = {
         AboutComponent,
         HomeComponent,
         NavbarComponent,
-        // RegisterComponent,
+        SearchComponent,
         LoginComponent,
         ForumComponent,
         NoContentComponent,

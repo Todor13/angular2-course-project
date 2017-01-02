@@ -6,7 +6,8 @@ import { LoginComponent} from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ForumComponent } from './forum/forum.component';
 import { CreateComponent } from './forum/create-topic/create.component';
-import {DetailedComponent} from './forum/detailed-topic/detailed.component';
+import { DetailedComponent } from './forum/detailed-topic/detailed.component';
+import { SearchComponent } from './forum/search/search.component';
 import { AuthGuard } from './common/auth.guard';
 
 
@@ -18,6 +19,7 @@ export const ROUTES: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'forum', component: ForumComponent },
   { path: 'forum/create', component: CreateComponent },
+  { path: 'forum/search', component: SearchComponent },
   { path: 'forum/:id', component: DetailedComponent },
   {
     path: 'detail', loadChildren: () => System.import('./+detail')

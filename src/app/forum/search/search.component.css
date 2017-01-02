@@ -1,5 +1,12 @@
 /*@import "../../../assets/bower_components/bootstrap/dist/css/bootstrap.min.css";*/
 
+.user_name{
+    font-size:14px;
+    font-weight: bold;
+}
+.comments-list .media{
+    border-bottom: 1px dotted #ccc;
+}
 .custab{
     border: 1px solid #ccc;
     padding: 5px;
@@ -10,7 +17,4 @@
 .custab:hover{
     box-shadow: 3px 3px 0px transparent;
     transition: 0.5s;
-}
-.indent{
-    padding-left: 25px;
 }
