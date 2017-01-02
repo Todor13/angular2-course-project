@@ -92,6 +92,8 @@ export class RegisterComponent implements OnInit {
         if (!this.userForm) {
             return;
         }
+
+
         const form = this.userForm;
 
         for (const field in this.formErrors) {
@@ -99,6 +101,10 @@ export class RegisterComponent implements OnInit {
             this.formErrors[field] = '';
             const control = form.get(field);
 
+
+            if (this.user.password != this.confirmPassword){
+              this.formErrors['confirmPassword'] += this.validationMessages['confirmPassword']['wrong'] + ' ';
+            }
             //console.log(control.errors);
             if (control && control.dirty && !control.valid) {
                 const messages = this.validationMessages[field];
@@ -144,7 +150,8 @@ export class RegisterComponent implements OnInit {
             'maxlength': 'Password cannot be more than 15 characters long.'
         },
         'confirmPassword': {
-            'required': 'Please re-enter your password'
+            'required': 'Please re-enter your password',
+            'wrong': 'Password does NOT match!'
         }
     };
 
