@@ -1,6 +1,6 @@
 <h1>Welcome to our forum</h1>
 <div class="nav navbar">
-  <a class="btn btn-default" [routerLink]="['create']">Create topic</a>
+  <a class="btn btn-default" [routerLink]="['create']" [style.display]="!isLogged?'none':'initial'">Create topic</a>
   <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
     <input type="text" [(ngModel)]="search" name="search">
     <button type="submit" class="btn btn-default">Search</button>

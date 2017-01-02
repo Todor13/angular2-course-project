@@ -5,6 +5,7 @@ import {Subscription} from "rxjs/Rx";
 import {Topic} from '../../../models/topic';
 import {Location} from '@angular/common';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {AuthGuard} from '../../common/auth.guard';
 
 @Component({
   selector: 'app-detailed',
@@ -19,9 +20,10 @@ export class DetailedComponent implements OnInit {
   submitted = false;
   content: string;
   popup: string;
+  isLogged = false;
 
   constructor(private forumService: ForumService, private activatedRoute: ActivatedRoute,
-              private location: Location, private fb: FormBuilder) { }
+              private location: Location, private fb: FormBuilder, private authGuard: AuthGuard) { }
 
   ngOnInit() {
     this.onInit();
@@ -29,6 +31,9 @@ export class DetailedComponent implements OnInit {
   }
 
   onInit(){
+    if (this.authGuard.canActivate()){
+      this.isLogged = true;
+    }
     this.subscription = this.activatedRoute.params.subscribe(
       (queryParam: any) => {
         this.id = queryParam['id'];
@@ -49,6 +54,9 @@ export class DetailedComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.isLogged){
+      return;
+    }
     this.submitted = true;
     this.content = this.answerForm.value;
 

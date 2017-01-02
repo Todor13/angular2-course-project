@@ -1,8 +1,9 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ForumService} from '../../services/forum.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {URLSearchParams} from '@angular/http';
 import {Subscription} from "rxjs/Rx";
+import {AuthGuard} from '../../common/auth.guard';
 
 const PageSize = 3;
 
@@ -16,10 +17,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   count = [];
   search: string;
   private subscription: Subscription;
-
+  isLogged = false;
   page: string;
 
-  constructor(private forumServicve: ForumService, private route: ActivatedRoute) {
+  constructor(private forumServicve: ForumService, private route: ActivatedRoute,
+              private router: Router, private authGuard: AuthGuard) {
   }
 
   ngOnInit() {
@@ -27,7 +29,18 @@ export class SearchComponent implements OnInit, OnDestroy {
       (queryParam: any) => {
         this.count = [];
         this.search = queryParam['title'];
-        this.onSubmit();
+        this.page = queryParam['page'];
+        let params = new URLSearchParams();
+        params.set('page', this.page);
+        params.set('title', this.search);
+        this.forumServicve.searchTopics(params)
+          .subscribe(
+            data => {
+              this.topics = data.result.threads;
+              this.calculatePages(data.result.count);
+            },
+            err => console.log(err)
+          );
       });
   }
 
@@ -36,17 +49,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(){
-    console.log('here');
-    let params = new URLSearchParams();
-    params.set('title', this.search);
-    this.forumServicve.searchTopics(params)
-      .subscribe(
-        data => {
-          this.topics = data.result.threads;
-          this.calculatePages(data.result.count);
-        },
-        err => console.log(err)
-      );
+    if (this.authGuard.canActivate()){
+      this.isLogged = true;
+    }
+    this.router.navigate( ['forum/search'], {queryParams: {title: this.search }});
   }
 
   calculatePages(count){

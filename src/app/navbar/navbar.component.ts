@@ -1,13 +1,13 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthGuard } from '../common/auth.guard'
-import {AuthenticationService} from "../services/authentication.service";
+import { AuthenticationService } from "../services/authentication.service";
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, OnChanges{
+export class NavbarComponent implements OnInit{
   isIn = false;
   username: string;
 
@@ -19,13 +19,7 @@ export class NavbarComponent implements OnInit, OnChanges{
     if (this.isLogged()){
       this.getCurrentUser();
     }
-  }
-
-  ngOnChanges(){
-    // if (this.isLogged()){
-    //   this.getCurrentUser();
-    //   console.log('onchanges');
-    // }
+    console.log('init navbar');
   }
 
   toggleState() {

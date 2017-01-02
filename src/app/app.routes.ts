@@ -18,7 +18,7 @@ export const ROUTES: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'forum', component: ForumComponent },
-  { path: 'forum/create', component: CreateComponent },
+  { path: 'forum/create', component: CreateComponent, canActivate: [AuthGuard] },
   { path: 'forum/search', component: SearchComponent },
   { path: 'forum/:id', component: DetailedComponent },
   {

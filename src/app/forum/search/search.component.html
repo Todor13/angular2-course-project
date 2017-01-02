@@ -1,6 +1,6 @@
 <h1>Search results</h1>
 <div class="nav navbar">
-  <a class="btn btn-default" [routerLink]="['create']">Create topic</a>
+  <a class="btn btn-default" [routerLink]="['create']" [style.display]="!isLogged?'none':'initial'">Create topic</a>
   <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
     <input type="text" [(ngModel)]="search" name="search">
     <button type="submit" class="btn btn-default">Search</button>
@@ -13,7 +13,7 @@
     <div class="col-md-8">
       <div class="page-header">
         <h1>
-          Topics
+          Topics Found
         </h1>
       </div>
       <div class="content-wrapper">
@@ -27,9 +27,9 @@
         </table>
         <ul class="list list-inline text-center">
           <li *ngFor="let number of count">
-            <a *ngIf="page == number" class="btn btn-primary disabled" [routerLink]="" [queryParams]="{page: number}">{{number}}</a>
+            <a *ngIf="page == number" class="btn btn-primary disabled" [routerLink]="" [queryParams]="{page: number, title: search}">{{number}}</a>
             <a *ngIf="page != number" class="btn btn-default" [routerLink]=""
-               [queryParams]="{page: number}">{{number}}</a>
+               [queryParams]="{page: number, title: search}">{{number}}</a>
           </li>
         </ul>
       </div>

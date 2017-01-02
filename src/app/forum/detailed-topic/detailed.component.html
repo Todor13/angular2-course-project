@@ -14,7 +14,8 @@
     </tr>
   </table>
   <h3>Answers</h3>
-  <p *ngIf="messages.length == 0">There is no answers yet! You could be the first one!</p>
+  <p *ngIf="messages.length == 0 && isLogged">There is no answers yet! You could be the first one!</p>
+  <p *ngIf="messages.length == 0 && !isLogged">There is no answers yet!</p>
   <table class="table table-bordered table-striped custab" *ngFor="let message of messages">
     <tr>
       <th>
@@ -27,7 +28,7 @@
       </td>
     </tr>
   </table>
-  <form *ngIf="!popup" [formGroup]="answerForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+  <form *ngIf="!popup" [formGroup]="answerForm" (ngSubmit)="onSubmit()" class="form-horizontal" [style.display]="!isLogged?'none':'inherit'">
     <fieldset>
       <hr>
       <label class="control-label row indent" for="content">Your answer</label>

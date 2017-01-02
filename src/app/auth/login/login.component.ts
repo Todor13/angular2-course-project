@@ -10,7 +10,7 @@ import { AuthenticationService } from '../../services/index';
 export class LoginComponent {
   username: string;
   password: string;
-  submited=false;
+  submited = false;
   message: string;
 
   constructor(public router: Router, public authService: AuthenticationService) {

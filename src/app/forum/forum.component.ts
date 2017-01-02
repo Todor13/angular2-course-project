@@ -3,6 +3,7 @@ import {ForumService} from '../services/forum.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {URLSearchParams} from '@angular/http';
 import {Subscription} from "rxjs/Rx";
+import {AuthGuard} from '../common/auth.guard';
 
 const PageSize = 3;
 
@@ -16,14 +17,18 @@ export class ForumComponent implements OnInit, OnDestroy {
   count = [];
   search: string;
   private subscription: Subscription;
-
+  isLogged = false;
   page: string;
 
-  constructor(private forumServicve: ForumService, private route: ActivatedRoute, private router: Router) {
+  constructor(private forumServicve: ForumService, private route: ActivatedRoute,
+              private router: Router, private authGuard: AuthGuard) {
   }
 
 
   ngOnInit() {
+    if (this.authGuard.canActivate()){
+      this.isLogged = true;
+    }
     this.subscription = this.route.queryParams.subscribe(
       (queryParam: any) => {
         this.count = [];
